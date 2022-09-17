@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CourseDao">
+	<resultMap id="idUserMap" type="userObj">
+		<id column="user_No" property="userNo"/>
+		<result column="user_Name"  property="userName"/>
+		<result column="user_Password"  property="userPassword"/>		
+		<result column="user_Type" property="userType"/>		
+	</resultMap>
+	<resultMap id="idTeacherMap" type="teacherObj">
+		<id column="teacher_No" property="teacherNo"/>
+		<result column="user_No" property="userNo"/>
+		<result column="permission_TimeTable"  property="permissionTimetable"/>
+		<result column="permission_StuInfo"  property="permissionStuinfo"/>
+		<association property="user" resultMap="idUserMap"/>		
+	</resultMap>
+	<resultMap id="idSemMap" type="semObj">
+		<id column="sem_Name" property="semName"/>
+		<result column="noOf_Course"  property="noofCourse"/>		
+	</resultMap>
+	<resultMap id="idCourseMap" type="courseObj">
+		<id column="course_No" property="courseNo"/>
+		<result column="teacher_No" property="teacherNo" />
+		<result column="sem_Name" property="semName" />
+		<result column="course_Name"  property="courseName"/>		
+		<result column="tuto_Percentage"  property="tutoPercentage"/>	
+		<result column="lab_Percentage"  property="labPercentage"/>
+		<result column="assign_Percentage"  property="assignPercentage"/>
+		<result column="exam_Percentage"  property="examPercentage"/>
+		<result column="tuto_Given"  property="tutoGiven"/>
+		<result column="assign_Given"  property="assignGiven"/>
+		<result column="lab_Given"  property="labGiven"/>
+		<result column="exam_Given"  property="examGiven"/>
+		<association property="teacher" resultMap="idTeacherMap"/>
+		<association property="semester" resultMap="idSemMap"/>
+	</resultMap>
+	<insert id="registerCourse"  parameterType="courseObj">
+		insert into Course 
+		values(#{courseNo},#{courseName},#{tutoPercentage},#{labPercentage},
+		#{assignPercentage},#{examPercentage},#{teacherNo},#{semName},
+		#{tutoGiven},#{assignGiven},#{labGiven},#{examGiven})
+	</insert>	
+	<update id="updatePercentage" parameterType="courseObj">
+		update Course set 
+		tuto_Percentage=#{tutoPercentage},
+		lab_Percentage=#{labPercentage},
+		assign_Percentage=#{assignPercentage},
+		exam_Percentage=#{examPercentage} ,
+		tuto_Given=#{tutoGiven},
+		lab_Given=#{labGiven},
+		assign_Given=#{assignGiven},
+		exam_Given=#{examGiven} 
+		where course_Name=#{courseName} 
+	</update>
+	<select id="selectAll" resultMap="idCourseMap" parameterType="String">
+		select * from Course 
+		where course_Name=#{courseName}
+	</select>
+	<select id="selectCourseByTeacher" resultType="String" parameterType="int">
+		select course_Name from Course 
+		where teacher_No=#{teacherNo}
+	</select>
+	<select id="selectSemByCourseName" resultType="String" parameterType="String">
+		select sem_Name from Course 
+		where course_Name=#{courseName} 
+	</select>
+	<select id="selectCourse" resultMap="idCourseMap" parameterType="String">
+		select * from Course 
+		where course_Name=#{courseName}
+	</select>
+	<select id="selectCourseNoByName" resultType="String" parameterType="String">
+		select course_No from Course 
+		where course_Name=#{courseName}
+	</select>
+	<select id="selectTutoPForCalMark" resultType="int" parameterType="String">
+		select tuto_Percentage from course 
+		where course_No=#{courseNo}
+	</select>
+	<select id="selectAssignPForCalMark" resultType="int" parameterType="String">
+		select assign_Percentage from course 
+		where course_No=#{courseNo}
+	</select>
+	<select id="selectLabPForCalMark" resultType="int" parameterType="String">
+		select lab_Percentage from course 
+		where course_No=#{courseNo}
+	</select>
+	<select id="selectExamPForCalMark" resultType="int" parameterType="String">
+		select exam_Percentage from course 
+		where course_No=#{courseNo}
+	</select>
+	<select id="selectTutoGForCalMark" resultType="int" parameterType="String">
+		select tuto_Given from course 
+		where course_No=#{courseNo}
+	</select>
+	<select id="selectAssignGForCalMark" resultType="int" parameterType="String">
+		select assign_Given from course 
+		where course_No=#{courseNo}
+	</select>
+	<select id="selectLabGForCalMark" resultType="int" parameterType="String">
+		select lab_Given from course 
+		where course_No=#{courseNo}
+	</select>
+	<select id="selectExamGForCalMark" resultType="int" parameterType="String">
+		select exam_Given from course 
+		where course_No=#{courseNo}
+	</select>
+</mapper>	

@@ -1,0 +1,68 @@
+@CHARSET "ISO-8859-1";
+h1, h3{
+			margin: 20px;
+			padding: 0;
+			color: #ffffff;
+			text-align: center;
+			text-transform:uppercase;
+		}
+		body{
+			margin: 0;
+			padding: 0;
+			background: url(ytu5.jpg);
+			background-size: cover;
+			font-family: sans-serif; 
+		}
+		p{
+			
+			font-weight: bold;
+			color: #ffffff;
+		}
+		.userPhoto{
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			overflow: hidden;
+			position: absolute;
+			top: calc(-40px/2);
+			left: calc(50% - 50px);
+			
+		}
+		.loginbox{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate( -50%, -50%);
+			width: 350px;
+			height: 420px;
+			padding: 80px 40px;
+			box-sizing: border-box;
+			background: rgba(0, 0, 0, .2);
+
+		}
+		#userName,#password{
+			border: none;
+			border-bottom: 1px solid #fff;
+			background: transparent;
+			outline: none;
+			height: 25px;
+			color: #fff;
+			font-size: 16px;
+			width:250px;
+		}
+		#submit{
+			border: none;
+			outline: none;
+			height: 40px;
+			color: #400040;
+			font-size: 16px;
+			background: #ffffff;
+			cursor: pointer;
+			border-radius: 20px;
+			width:250px;
+			
+		}
+		#submit:hover{
+			background: #80ffff;
+			color: #262626;
+		}

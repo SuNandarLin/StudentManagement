@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+	<form-beans>
+		
+		<form-bean name="homeFormBean" type="com.form.HomeForm"/>
+		<form-bean name="markFormBean" type="com.form.MarkForm"/>
+		<form-bean name="courseFormBean" type="com.form.CourseEditForm"/>
+		<form-bean name="showMarkFormBean" type="com.form.ShowMarkForm"/>
+		<form-bean name="regFormBean" type="com.form.RegForm"/>
+		
+	</form-beans>
+	
+	<global-forwards>
+		<forward name="loginPath" path="/loginActionPath.do"/>
+	</global-forwards>
+	
+	<action-mappings>	
+		<action path="/loginActionPath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			 scope="session">
+			<forward name="gotoLogin" path="/login.jsp"/>
+		</action>
+		<action path="/homePath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="homeFormBean" validate="true" input="/login.jsp">
+			<forward name="gotoHome" path="/home.jsp"/>	
+			<forward name="gotoLogin" path="/login.jsp"/>		
+		</action>
+		<action path="/markPath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="markFormBean" validate="true">
+			<forward name="gotoHome" path="/home.jsp"/>	
+			<forward name="gotoMark" path="/mark.jsp"/>				
+		</action>
+		<action path="/markFillPath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="markFormBean" validate="true" scope="session">
+			<forward name="gotoHome" path="/home.jsp"/>	
+			<forward name="gotoMarkFill" path="/markFill.jsp"/>				
+		</action>
+		<action path="/showMarkPath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="showMarkFormBean" validate="true" scope="session">
+			<forward name="gotoShowMark" path="/showMark.jsp"/>
+			<forward name="gotoHome" path="/home.jsp"/>				
+		</action>
+		<action path="/courseEditPath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="courseFormBean" validate="true">
+			<forward name="gotoCourseEdit" path="/courseEdit.jsp"/>	
+			<forward name="gotoHome" path="/home.jsp"/>			
+		</action>
+		<action path="/adminPath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="regFormBean" validate="true">
+			<forward name="gotoAdmin" path="/adminPermit.jsp"/>	
+			<forward name="gotoHome" path="/home.jsp"/>			
+		</action>
+		<action path="/adminPath1"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="regFormBean" validate="true">
+			<forward name="gotoAdmin" path="/adminPermit.jsp"/>	
+			<forward name="gotoHome" path="/home.jsp"/>			
+		</action>	
+		<action path="/regStuPath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="regFormBean" validate="true">
+			<forward name="gotoRegStu" path="/regStudent.jsp"/>	
+			<forward name="gotoHome" path="/home.jsp"/>			
+		</action>
+		<action path="/viewInfoPath"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			name="regFormBean" validate="true">
+			<forward name="gotoInfo" path="/Info.jsp"/>	
+			<forward name="gotoHome" path="/home.jsp"/>			
+		</action>	
+		
+	</action-mappings>
+	<message-resources parameter="MessageResources"/>
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/org/apache/struts/validator/validator-rules.xml,
+			/WEB-INF/validation.xml"/>
+	</plug-in>
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation"
+			value="/WEB-INF/spring.xml"/>
+	</plug-in>
+	
+</struts-config>
+
+
+
+
+
+

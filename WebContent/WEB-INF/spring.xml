@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+		<context:property-placeholder location="classpath:database.properties"/>
+		<bean id="idDataSource"
+			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="${driver}"/>
+			<property name="url" value="${url}"/>
+			<property name="username" value="${name}"/>
+			<property name="password" value="${password}"/>
+		</bean>
+		<bean id="idSqlSessionFactory"
+			class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="idDataSource"/>
+			<property name="configLocation" 
+				value="/WEB-INF/mybatis_config.xml"/>
+		</bean>	
+		<bean id="idUserDao"
+			class="org.mybatis.spring.mapper.MapperFactoryBean">
+			<property name="sqlSessionFactory">
+				<ref bean="idSqlSessionFactory"/>
+			</property>
+			<property name="mapperInterface">
+				<value>com.dao.UserDao</value>
+			</property>	
+		</bean>
+		<bean id="idTeacherDao"
+			class="org.mybatis.spring.mapper.MapperFactoryBean">
+			<property name="sqlSessionFactory">
+				<ref bean="idSqlSessionFactory"/>
+			</property>
+			<property name="mapperInterface">
+				<value>com.dao.TeacherDao</value>
+			</property>	
+		</bean>
+		<bean id="idStudentDao"
+			class="org.mybatis.spring.mapper.MapperFactoryBean">
+			<property name="sqlSessionFactory">
+				<ref bean="idSqlSessionFactory"/>
+			</property>
+			<property name="mapperInterface">
+				<value>com.dao.StudentDao</value>
+			</property>	
+		</bean>
+		<bean id="idCourseDao"
+			class="org.mybatis.spring.mapper.MapperFactoryBean">
+			<property name="sqlSessionFactory">
+				<ref bean="idSqlSessionFactory"/>
+			</property>
+			<property name="mapperInterface">
+				<value>com.dao.CourseDao</value>
+			</property>	
+		</bean>
+		<bean id="idSemDao"
+			class="org.mybatis.spring.mapper.MapperFactoryBean">
+			<property name="sqlSessionFactory">
+				<ref bean="idSqlSessionFactory"/>
+			</property>
+			<property name="mapperInterface">
+				<value>com.dao.SemDao</value>
+			</property>	
+		</bean>
+		<bean id="idStudentMarkDao"
+			class="org.mybatis.spring.mapper.MapperFactoryBean">
+			<property name="sqlSessionFactory">
+				<ref bean="idSqlSessionFactory"/>
+			</property>
+			<property name="mapperInterface">
+				<value>com.dao.StudentMarkDao</value>
+			</property>	
+		</bean>
+		
+	<!--		
+		<bean id="idTutorailDao"
+			class="org.mybatis.spring.mapper.MapperFactoryBean">
+			<property name="sqlSessionFactory">
+				<ref bean="idSqlSessionFactory"/>
+			</property>
+			<property name="mapperInterface">
+				<value>com.example.mybatis.dao.TutorialDao</value>
+			</property>	
+		</bean>-->
+		
+		
+		<bean id="homeService" class="com.service.HomeService">
+			<property name="userDao" ref="idUserDao"/>
+			<property name="teacherDao" ref="idTeacherDao"/>
+			<property name="studentDao" ref="idStudentDao"/>
+		</bean>	
+		<bean id="markService" class="com.service.MarkService">
+			<property name="teacherDao" ref="idTeacherDao"/>
+			<property name="courseDao" ref="idCourseDao"/>
+			<property name="semDao" ref="idSemDao"/>
+			<property name="studentMarkDao" ref="idStudentMarkDao"/>
+			<property name="studentDao" ref="idStudentDao"/>
+		</bean>	
+		<bean id="regService" class="com.service.RegService">
+			<property name="teacherDao" ref="idTeacherDao"/>	
+			<property name="userDao" ref="idUserDao"/>	
+			<property name="studentDao" ref="idStudentDao"/>	
+		</bean>		
+		
+		
+		<bean name="/loginActionPath" class="com.action.LoginAction">
+		</bean>	
+		<bean name="/homePath" class="com.action.HomeAction">
+			<property name="homeService"	ref="homeService"/>			
+		</bean>
+		<bean name="/markPath" class="com.action.MarkAction">
+			<property name="markService"	ref="markService"/>			
+		</bean>	
+		<bean name="/markFillPath" class="com.action.MarkFillAction">
+			<property name="markService"	ref="markService"/>			
+		</bean>
+		<bean name="/courseEditPath" class="com.action.CourseEditAction">
+			<property name="markService"	ref="markService"/>			
+		</bean>
+		<bean name="/showMarkPath" class="com.action.ShowMarkAction">
+			<property name="markService"	ref="markService"/>			
+		</bean>
+		<bean name="/adminPath" class="com.action.AdminAction">
+			<property name="regService" ref="regService"/>
+ 		</bean>
+ 		<bean name="/adminPath1" class="com.action.AdminRegAction">
+			<property name="regService" ref="regService"/>
+ 		</bean>
+ 		<bean name="/regStuPath" class="com.action.RegStuAction">
+			<property name="regService" ref="regService"/>
+ 		</bean>
+ 		<bean name="/viewInfoPath" class="com.action.InfoAction">
+			<property name="regService" ref="regService"/>
+ 		</bean>
+		
+</beans>

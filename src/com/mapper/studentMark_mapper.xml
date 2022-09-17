@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.StudentMarkDao">
+	<resultMap id="idUserMap" type="userObj">
+		<id column="user_No" property="userNo"/>
+		<result column="user_Name"  property="userName"/>
+		<result column="user_Password"  property="userPassword"/>		
+		<result column="user_Type" property="userType"/>		
+	</resultMap>
+	<resultMap id="idStudentMap" type="studentObj">
+		<id column="student_No" property="studentNo"/>
+		<result column="user_No" property="userNo"/>
+		<result column="address"  property="address"/>
+		<result column="ph_No"  property="phNo"/>
+		<result column="birth_Date"  property="birthDate"/>
+		<result column="guardian"  property="guardian"/>
+		<result column="batch"  property="batch"/>
+		<association property="user" resultMap="idUserMap"/>		
+	</resultMap>	
+	<resultMap id="idTeacherMap" type="teacherObj">
+		<id column="teacher_No" property="teacherNo"/>
+		<result column="user_No" property="userNo"/>
+		<result column="permission_TimeTable"  property="permissionTimetable"/>
+		<result column="permission_StuInfo"  property="permissionStuinfo"/>
+		<association property="user" resultMap="idUserMap"/>		
+	</resultMap>
+	<resultMap id="idCourseMap" type="courseObj">
+		<id column="course_No" property="courseNo"/>
+		<result column="teacher_No" property="teacherNo" />
+		<result column="course_Name"  property="courseName"/>		
+		<result column="tuto_Percentage"  property="tutoPercentage"/>	
+		<result column="lab_Percentage"  property="labPercentage"/>
+		<result column="assign_Percentage"  property="assignPercentage"/>
+		<result column="exam_Percentage"  property="examPercentage"/>
+		<association property="teacher" resultMap="idTeacherMap"/>
+	</resultMap>
+	<resultMap id="idSemMap" type="semObj">
+		<id column="sem_Name" property="semName"/>
+		<result column="noOf_Course"  property="noofCourse"/>		
+	</resultMap>
+	<resultMap id="idRollMap" type="rollObj">
+		<id column="student_No" property="studentNo"/>
+		<id column="year" property="year"/>
+		<result column="roll_No"  property="rollNo"/>
+		<association property="student" resultMap="idStudentMap"/>
+	</resultMap>
+	<resultMap id="idStudentMarkMap" type="markObj">
+		<id column="student_No" property="studentNo"/>
+		<id column="course_No" property="courseNo"/>
+		<id column="sem_Name" property="semName"/>
+		<result column="tuto_Mark"  property="tutoMark"/>
+		<result column="assign_Mark"  property="assignMark"/>
+		<result column="lab_Mark"  property="labMark"/>
+		<result column="exam_Mark"  property="examMark"/>	
+		<result column="result"  property="result"/>
+		<result column="re_Mark"  property="reMark"/>	
+		<result column="debt_Mark"  property="debtMark"/>	
+		<result column="total_Mark"  property="totalMark"/>	
+		<association property="student" resultMap="idStudentMap"/>	
+		<association property="course" resultMap="idCourseMap"/>			
+		<association property="semester" resultMap="idSemMap"/>					
+	</resultMap>	
+	<insert id="addStudentMark" parameterType="markObj">
+		insert into StudentMark 
+		values(#{studentNo},#{courseNo},#{semName},null,null,null,null,null,null,null,null,null)
+	</insert>
+	<update id="addTutoMark" parameterType="markObj">
+		update StudentMark 
+		set tuto_Mark=#{tutoMark} 
+		where student_No= #{studentNo} and 
+		course_No=#{courseNo} 
+	</update>
+	<update id="addAssignMark" parameterType="markObj">
+		update StudentMark 
+		set assign_Mark=#{assignMark} 
+		where student_No= #{studentNo} and 
+		course_No=#{courseNo} 
+	</update>
+	<update id="addLabMark" parameterType="markObj">
+		update StudentMark 
+		set lab_Mark=#{labMark} 
+		where student_No= #{studentNo} and 
+		course_No=#{courseNo} 
+	</update>
+	<update id="addExamMark" parameterType="markObj">
+		update StudentMark 
+		set exam_Mark=#{examMark} 
+		where student_No= #{studentNo} and 
+		course_No=#{courseNo} 
+	</update>
+	<update id="addTotalMark" parameterType="markObj">
+		update StudentMark 
+		set total_Mark=#{totalMark} 
+		where student_No= #{studentNo} and 
+		course_No=#{courseNo} 
+	</update>
+	
+	<update id="addResult" parameterType="markObj">
+		update StudentMark 
+		set result=#{result} 
+		where student_No= #{studentNo} and 
+		course_No=#{courseNo} 
+	</update>
+	<select id="selectMark" resultMap="idStudentMarkMap" parameterType="markObj">
+		select s.student_No, s.student_Name , s.roll_No , sm.tuto_Mark,
+		sm.assign_Mark, sm.lab_Mark , sm.exam_Mark , sm.result_FirstSem ,
+		sm.result, sm.total_Mark 
+		from StudentMark sm, Student s 
+		where batch=#{batch} and course_No=#{courseNo} and sem_Name=#{semName} 
+	</select>
+	<select id="selectStudentMarkByCourseName" parameterType="String" resultMap="idStudentMarkMap">
+		select sm.*  
+		from studentMark sm,course c  
+		where c.course_No=sm.course_No and 
+		c.course_Name=#{courseName} 
+	</select>
+	<select id="selectRollNoByCourse" parameterType="String" resultType="String">
+		select r.roll_No 
+		from studentMark sm,course c ,student s ,rollNo r 
+		where c.course_No=sm.course_No and 
+		sm.student_No=s.student_No and 
+		s.student_No=r.student_No and 
+		c.course_Name=#{courseName}
+	</select>
+	<select id="selectUserNameByCourse" parameterType="String" resultType="String">
+		select u.user_Name 
+		from studentMark sm,course c ,User u ,student s 
+		where c.course_No=sm.course_No and 
+		sm.student_No=s.student_No and 
+		u.user_No=s.user_No and
+		c.course_Name=#{courseName}
+	</select>
+	<select id="selectStudentNoByCourseName" parameterType="String" resultType="int">
+		select sm.student_No 
+		from studentMark sm,course c 
+		where c.course_No=sm.course_No and 
+		c.course_Name=#{courseName} 
+	</select>
+	<select id="selectSemByStudentNo" parameterType="int" resultType="String">
+		select distinct c.sem_Name
+ 		from course c, studentMark sm
+ 		where c.course_No=sm.course_No and
+ 		sm.student_No=#{studentNo} 
+	</select>
+	<select id="selectTutoForShow" parameterType="markObj" resultType="int">
+	    select tuto_Mark from studentMark 
+	    where sem_Name=#{semName} and 
+	    student_No=#{studentNo} 
+	</select>
+	<select id="selectAssignForShow" parameterType="markObj" resultType="int">
+	    select assign_Mark from studentMark 
+	    where sem_Name=#{semName} and 
+	    student_No=#{studentNo} 
+	</select>
+	<select id="selectLabForShow" parameterType="markObj" resultType="int">
+	    select lab_Mark from studentMark 
+	    where sem_Name=#{semName} and 
+	    student_No=#{studentNo} 
+	</select>
+	<select id="selectExamForShow" parameterType="markObj" resultType="int">
+	    select exam_Mark from studentMark 
+	    where sem_Name=#{semName} and 
+	    student_No=#{studentNo} 
+	</select>
+	<select id="selectTotalForShow" parameterType="markObj" resultType="int">
+	    select total_Mark from studentMark 
+	    where sem_Name=#{semName} and 
+	    student_No=#{studentNo} 
+	</select>
+	<select id="selectResultForShow" parameterType="markObj" resultType="String">
+	    select result from studentMark 
+	    where sem_Name=#{semName} and 
+	    student_No=#{studentNo} 
+	</select>
+	<select id="selectCourseNameForShow" parameterType="markObj" resultType="String">
+		select c.course_Name
+ 		from course c, studentMark sm
+ 		where c.course_No=sm.course_No and
+		sm.sem_Name=#{semName} and 
+		sm.student_No=#{studentNo} 
+	</select>	
+	<select id="selectTutoMarkForResult" parameterType="markObj" resultType="int">
+		select tuto_Mark from studentMark 
+		where student_No=#{studentNo} and 
+		course_No=#{courseNo} 
+	</select>
+	<select id="selectAssignMarkForResult" parameterType="markObj" resultType="int">
+		select assign_Mark from studentMark 
+		where student_No=#{studentNo} and 
+		course_No=#{courseNo} 
+	</select>
+	<select id="selectLabMarkForResult" parameterType="markObj" resultType="int">
+		select lab_Mark from studentMark 
+		where student_No=#{studentNo} and 
+		course_No=#{courseNo} 
+	</select>
+</mapper>		

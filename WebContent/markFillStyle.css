@@ -1,0 +1,55 @@
+@CHARSET "ISO-8859-1";
+		h1{
+			margin: 20px;
+			padding: 0;
+			color: #ffffff;
+			text-align: center;
+			text-transform:uppercase;
+		}
+		body{
+			margin: 0;
+			padding: 0;
+			background: url(ytu5.jpg);
+			background-size: cover;
+			font-family: sans-serif; 
+			color: #0000ff;
+		}
+		p{
+			
+			font-weight: bold;
+			color: #c8f9fd;
+			font-size:20px;
+			padding-bottom:20px;
+		}
+		thead{
+			color:#ffffff;
+		}
+		#reback{
+			border: none;
+			outline: none;
+			height: 30px;
+			font-size: 16px;
+			cursor: pointer;
+			border-radius: 10px;
+			width:200px;
+			
+			
+		}
+		
+		a:link, a:visited{
+			display: block;
+			front-weight: bold;
+			color: black;
+			background-color: #c8f9fd;
+			width: 120px;
+			text-align: center;
+			padding: 4px;
+			//text-transform:uppercase;
+			text-decoration: none;
+
+		}
+		a:hover, a:active{
+			background-color:#0000ff;
+			color: white;
+		}
+		

@@ -1,0 +1,93 @@
+@CHARSET "ISO-8859-1";
+@CHARSET "ISO-8859-1";
+		h1,h3{
+			margin-top: 10px;
+			padding: 0;
+			color: #ffffff;
+			text-align: center;
+			text-transform:uppercase;
+		}
+		body{
+			margin: 0;
+			padding: 0;
+			background: url(ytu5.jpg);
+			background-size: cover;
+			font-family: sans-serif; 
+			color: #400040;
+		}
+		p{
+			color:#ffffff;
+			font-size:20px;
+		}
+		input{
+			color:black;
+		}
+		#reback{
+			border: none;
+			outline: none;
+			height: 20px;
+			color: #400040;
+			font-size: 16px;
+			background: #ffffff;
+			cursor: pointer;
+			border-radius: 10px;
+			width:200px;
+		
+			
+		}
+		#reback:hover{
+			background: #00ffff;
+			color: #262626;
+		}
+		a:link, a:visited{
+			display: block;
+			front-weight: bold;
+			color: black;
+			background-color: #c8f9fd;
+			width: 120px;
+			text-align: center;
+			padding: 4px;
+			//text-transform:uppercase;
+			text-decoration: none;
+
+		}
+		a:hover, a:active{
+			background-color:#0000ff;
+			color: white;
+		}
+		#submit{
+			border: none;
+			outline: none;
+			height: 20px;
+			color: #400040;
+			font-size: 16px;
+			background: #ffffff;
+			cursor: pointer;
+			border-radius: 10px;
+			width:200px;
+		
+			
+		}
+		#submit:hover{
+			background: #00ffff;
+			color: #262626;
+		}
+		#rebackhome{
+			border: none;
+			outline: none;
+			height: 22px;
+			color: #400040;
+			font-size: 16px;
+			background: #ffffff;
+			cursor: pointer;
+			border-radius: 10px;
+			width:200px;
+		//	margin-top:10px;
+			margin-left:400px;
+			
+		}
+		#rebackhome:hover{
+			background: #00ffff;
+			color: #262626;
+		}
+		

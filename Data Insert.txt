@@ -1,0 +1,29 @@
+
+insert into user values(1,'Ma Ma','mama!','S');
+insert into user values(2,'Daw Swe','swe','T');
+insert into user values(3,'Rose','rose','T');
+insert into user values(4,'Daw Nyein','nyein','T');
+
+insert into teacher values(null,2,null,null);
+insert into teacher values(null,3,null,null);
+insert into teacher values(null,4,null,null);
+
+insert into Student values(null,1,'4CEIT-2','KMD','092345','1998-09-09','U Kyaw Kyaw',3);
+insert into Student values(null,5,'4CEIT-7','Hlaing','0933345','1998-03-03','U Mya',3);
+insert into Student values(null,6,'2CEIT-7','Hlaing','0938345','2000-12-12','U Myo',5);
+insert into Student values(null,9,'2CEIT-9','Insein','0938345','2000-10-12','U Sein',5);
+insert into Student values(null,7,'3CEIT-12','South Oakala','09999','1999-11-09','U Aye',4);
+insert into Student values(null,8,'3CEIT-10','North Oakala','097983','1999-11-23','U Shwe',4);
+
+insert into Tutorial values(1,'11023',10,null,null,null,null);
+insert into Tutorial values(1,'11024',10,null,null,null,null);
+insert into Tutorial values(2,'11023',8,null,null,null,null);
+insert into Tutorial values(2,'11024',9,null,null,null,null);
+insert into Tutorial values(3,'11025',2,null,null,null,null);
+insert into Tutorial values(3,'13026',9,null,null,null,null);
+insert into Tutorial values(4,'11025',6,null,null,null,null);
+insert into Tutorial values(4,'13026',7,null,null,null,null);
+insert into Tutorial values(5,'13027',4,null,null,null,null);
+insert into Tutorial values(5,'13026',5,null,null,null,null);
+insert into Tutorial values(5,'13027',3,null,null,null,null);
+insert into Tutorial values(5,'13026',10,null,null,null,null);

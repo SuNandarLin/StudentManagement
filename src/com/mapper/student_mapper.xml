@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.StudentDao">
+	<resultMap id="idUserMap" type="userObj">
+		<id column="user_No" property="userNo"/>
+		<result column="user_Name"  property="userName"/>
+		<result column="user_Password"  property="userPassword"/>		
+		<result column="user_Type" property="userType"/>		
+	</resultMap>	
+	<resultMap id="idStudentMap" type="studentObj">
+		<id column="student_No" property="studentNo"/>
+		<result column="user_No" property="userNo"/>
+		<result column="address"  property="address"/>
+		<result column="ph_No"  property="phNo"/>
+		<result column="birth_Date"  property="birthDate"/>
+		<result column="guardian"  property="guardian"/>
+		<result column="batch"  property="batch"/>
+		<association property="user" resultMap="idUserMap"/>		
+	</resultMap>
+	<resultMap id="idRollMap" type="rollObj">
+		<id column="student_No" property="studentNo"/>
+		<id column="batch" property="batch"/>
+		<result column="roll_No"  property="rollNo"/>
+		<association property="student" resultMap="idStudentMap"/>
+	</resultMap>		
+	<insert id="registerStudent" parameterType="studentObj">
+		insert into Student 
+		values(null,#{userNo},#{address},#{phNo},#{birthDate},#{guardian},
+		#{batch} )
+	</insert>
+	<insert id="registerRollNo" parameterType="rollObj">
+		insert into rollNo 
+		values(#{studentNo},#{batch},#{rollNo})
+	</insert>
+	<select id="selectStudent" resultMap="idStudentMap" >
+		select * from Student
+	</select>
+	<select id="selectStudentNo" resultType="int" parameterType="int">
+		select student_No from student
+		where user_No=#{userNo};
+	</select>
+	<select id="selectStudentName" resultType="String" parameterType="int">
+		select user_Name from user 
+		where user_No=#{userNo};
+	</select>
+	<select id="selectStudentNameByStudentNo" resultType="String" parameterType="int">
+		select u.user_Name 
+		from user u,student s
+		where u.user_No=s.user_No and 
+		s.student_No=#{studentNo}
+	</select>
+	<select id="selectRoll" resultType="String">
+		select roll_No from rollNo
+	</select>
+	<select id="selectStudentByRollNo" resultType="studentObj" parameterType="String">
+		select s.* from student s, rollNo r 
+		where s.student_No=r.student_No and 
+		r.roll_No=#{rollNo}
+	</select>
+	<select id="selectPhoneByRollNo" resultType="String" parameterType="String">
+		select s.ph_No from student s, rollNo r 
+		where s.student_No=r.student_No and 
+		r.roll_No=#{rollNo}
+	</select>
+	<select id="selectUserNameByRollNo" resultType="String" parameterType="String">
+		select u.user_Name 
+		from student s, rollNo r , user u
+		where s.student_No=r.student_No and 
+		u.user_No=s.user_No and 
+		r.roll_No=#{rollNo}
+	</select>
+	
+	
+</mapper>		

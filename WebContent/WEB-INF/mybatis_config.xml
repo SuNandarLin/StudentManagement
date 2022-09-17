@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>	
+	<typeAliases>
+		<typeAlias alias="userObj"  type="com.model.UserModel"/>
+		<typeAlias alias="teacherObj" type="com.model.TeacherModel"/>
+		<typeAlias alias="studentObj" type="com.model.StudentModel"/>
+	 	<typeAlias alias="courseObj" type="com.model.CourseModel"/>
+	 	<typeAlias alias="semObj"   type="com.model.SemesterModel"/>
+	 	<typeAlias alias="markObj" type="com.model.StudentmarkModel"/>
+	 	<typeAlias alias="rollObj" type="com.model.RollnoModel"/>
+	<!--	<typeAlias alias="roomObj" type="com.model.RoomModel"/>	
+		<typeAlias alias="timeObj" type="com.model.TimeModel"/>
+		<typeAlias alias="timetableObj" type="com.model.TimetableModel"/>
+		<typeAlias alias="tutorialObj" type="com.model.TutorialModel"/>-->
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/mapper/user_mapper.xml"/>	
+		<mapper resource="com/mapper/teacher_mapper.xml"/>
+		<mapper resource="com/mapper/student_mapper.xml"/>
+   		<mapper resource="com/mapper/course_mapper.xml"/>
+   		<mapper resource="com/mapper/sem_mapper.xml"/>
+   		<mapper resource="com/mapper/studentMark_mapper.xml"/>	
+<!--	<mapper resource="com/mapper/room_mapper.xml"/>				
+		<mapper resource="com/mapper/time_mapper.xml"/>
+		<mapper resource="com/mapper/timetable_mapper.xml"/>
+		<mapper resource="com/mapper/tutorial_mapper.xml"/> -->
+	</mappers>
+</configuration>

@@ -1,0 +1,107 @@
+Create table User(
+user_No int primary key auto_increment,
+user_Name varchar(20),
+user_Password varchar(15) unique not null,
+user_Type varchar(3)
+);
+
+Create table Teacher(
+teacher_No int primary key auto_increment,
+user_No int,
+permission_TimeTable boolean,
+permission_StuInfo boolean,
+foreign key (user_No) references User (user_No) 
+);
+
+Create table Course(
+course_No varchar(7) primary key,
+course_Name varchar(30),
+tuto_Percentage int,
+lab_Percentage int,
+assign_Percentage int,
+exam_Percentage int,
+teacher_No int not null,
+foreign key(Teacher_No) references Teacher(Teacher_No)
+);
+
+Create table Student(
+student_No int primary key,
+user_No int,
+address text not null,
+ph_No varchar(13),
+birth_Date date not null,
+guardian varchar(20) not null,
+batch int not null,
+foreign key (user_No) references User (user_No)
+);
+
+create table Semester(
+sem_Name varchar(30) unique not null,
+noOf_Course int
+);
+
+create table Room(
+room_No int primary key auto_increment,
+room_Name varchar(10) unique not null
+);
+
+create table Time(
+time_Id int unique not null,
+day varchar(5) not null,
+time int not null
+);
+
+Create table timetable(
+sem_No int,
+sem_Name varchar(30),
+time_Id int,
+teacher_No int,
+course_No varchar(7),
+room_No int,
+foreign key (sem_Name) references semester(sem_Name),
+foreign key (time_Id) references Time(time_Id),
+foreign key (teacher_No) references Teacher(teacher_No),
+foreign key (course_No) references Course(course_No),
+foreign key (room_No) references Room(room_No),
+primary key(sem_No,time_Id)
+);
+
+Create table StudentMark(
+student_No int ,
+course_No varchar(7) ,
+sem_Name varchar(30) ,
+tuto_Mark int,
+assign_Mark int,
+lab_Mark int,
+exam_Mark int,
+result varchar(6),
+re_Mark int,
+debt_Mark int,
+totalMark_FirstSem int,
+totalMark_SecSem int,
+foreign key (student_No) references Student(student_No),
+foreign key (course_No) references Course(course_No),
+foreign key (sem_Name) references semester(sem_Name),
+primary key(student_No,course_No,sem_Name)
+);
+
+Create table Tutorial(
+student_No int,
+course_No varchar(7),
+tuto1 int,
+tuto2 int,
+tuto3 int,
+tuto4 int,
+tuto5 int,
+foreign key (student_No) references Student (student_No),
+foreign key (course_No) references Course (course_No),
+primary key (student_No,course_No)
+);
+
+Create table rollNo(
+student_No int,
+batch int,
+roll_No varchar(10),
+foreign key (student_No) references Student (student_No),
+primary key(student_No,batch)
+);
