@@ -1,2 +1,2 @@
 # StudentManagement
-Student Management System (June 2018 to September 2018)
+Student Management System, In house training YTU (June 2018 to September 2018)
